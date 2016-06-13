@@ -1,0 +1,25 @@
+<h1>New Question</h1>
+<div class="row">
+  <div class="col-md-8">
+    <%= form_for @question do |f| %>
+    <div class="form-group">
+      <%= f.label :tilte %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :resolved %>
+      <%= f.check_box :resolved %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit "Save" %>
+    </div>
+  </div>
+  <% end %>
+</div>
