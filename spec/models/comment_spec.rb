@@ -6,8 +6,9 @@ RSpec.describe Comment, type: :model do
   let(:title) {RandomData.random_sentence}
   let(:body) {RandomData.random_paragraph}
   
+  let(:user) {User.create!(name: "David Forero", email: "david@email.com", password: "password")}
   let(:topic) {Topic.create!(name: name, description: description)}
-  let(:post) {topic.posts.create!(title: title, body: body)}
+  let(:post) {topic.posts.create!(title: title, body: body, user: user)}
   let(:comment) {Comment.create!(body: "Comment Body", post: post)}
 
   describe "attributes" do
