@@ -3,7 +3,12 @@
     <small>
       <%= comment.user.name %> commented <%= time_ago_in_words(comment.created_at) %>
       <% if user_is_authorized_for_comment?(comment) %>
+        <% if @topic %>
+         | <%= link_to "Delete", [@topic, comment], method: :delete %>
+        <% end %>
+        <% if @post %>
          | <%= link_to "Delete", [@post, comment], method: :delete %>
+        <% end %>
       <% end %>
     </small>
     <p><%= comment.body %></p>
