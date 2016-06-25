@@ -69,5 +69,20 @@ RSpec.describe Post, type: :model do
         expect(post.rank).to eq(old_rank - 1)
       end
     end
+
+    describe "#create_vote callback" do
+      it "triggers the create_vote on save" do
+        my_post = Post.create(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user, topic: topic)
+        expect(my_post).to receive(:create_vote).at_least(:once)
+      end
+
+      it "create_vote should increase the vote number by 1" do
+        my_post = Post.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user, topic: topic)
+        points = post.points
+        expect(my_post.points).to eq(points + 1)
+      end
+    end
+
   end
+
 end
