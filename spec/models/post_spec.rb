@@ -71,4 +71,25 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe "#after_create callback" do
+    before do
+      @new_post = Post.new(title: RandomData.random_sentence, body: RandomData.random_paragraph, topic: topic, user: user)
+    end
+    it "triggers favorite_post callback on save" do
+      expect(@new_post).to receive(:favorite_post).at_least(:once)
+      @new_post.save!
+    end
+
+    it "favorites the post for the user" do
+      expect(@new_post.favorites).not_to be_nil
+      @new_post.save!
+    end
+
+    it "sends an email to the user that the post has been favorited." do
+      expect(FavoriteMailer).to receive(:new_post).with(user, @new_post).and_return(double(deliver_now: true))
+      @new_post.save!
+    end
+  end
+
 end
