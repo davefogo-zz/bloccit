@@ -4,9 +4,13 @@
     <h4 class="media-heading">
       <%= link_to post.title, topic_post_path(post.topic, post) %>
       <%= render partial: "labels/list", locals: {labels: post.labels} %>
+      <% if post.favorites.count > 0 %>
+        <%= image_tag @user.avatar_url(16) %> Votes: <%= @user.votes.count%>, Comments: <%= @user.comments.count%>
+      <% end %>
     </h4>
     <small>
-      submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %> <br>
+      submitted <%= time_ago_in_words(post.created_at) %> ago by <%= post.user.name %>
+      <br>
       <%= post.comments.count %> Comments
     </small>
   </div>

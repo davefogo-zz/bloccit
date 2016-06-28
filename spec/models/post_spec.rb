@@ -67,4 +67,17 @@ RSpec.describe Post, type: :model do
       end
     end
   end
+
+  describe "favorited_posts scope" do
+    before do
+      new_favorite = post.favorites.create!(user: user)
+    end
+
+    it "shows only posts that have been favorited" do
+      posts = Post.all.count
+      favorited_posts = Post.favorited_posts.count
+      expect(posts).not_to eq(:favorited_posts)
+    end
+  end
+
 end

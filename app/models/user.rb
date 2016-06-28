@@ -27,4 +27,14 @@ class User < ActiveRecord::Base
     gravatar_id = Digest::MD5::hexdigest(self.email).downcase
     "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
   end
+
+  def comments_or_posts?
+    if self.comments.count == 0
+      "#{self.name} does not have any comments"
+    elsif self.posts.count == 0
+      " #{self.name} does not have any posts"
+    elsif self.posts.count == 0 && self.comments.count == 0
+      " #{self.name} does not have comments or posts"
+    end
+  end
 end

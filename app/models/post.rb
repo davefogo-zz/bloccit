@@ -11,6 +11,8 @@ class Post < ActiveRecord::Base
 
   scope :visible_to, -> (user) {user ? all : joins(:topic).where('topics.public' => true)}
 
+  scope :favorited_posts, -> { self.joins(:favorites)}
+
   validates :title, length: {minimum: 5}, presence: true
   validates :body, length: {minimum: 20}, presence: true
   validates :topic, presence: true
