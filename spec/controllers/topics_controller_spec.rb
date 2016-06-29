@@ -4,6 +4,7 @@ include SessionsHelper
 
 RSpec.describe TopicsController, type: :controller do
   let(:my_topic) {create(:topic)}
+  let(:my_private_topic) {create(:topic, public: false)}
 
   context "guest" do
     describe "GET #index" do
@@ -15,6 +16,11 @@ RSpec.describe TopicsController, type: :controller do
       it "assigns my_topic to @topics" do
         get :index
         expect(assigns(:topics)).to eq([my_topic])
+      end
+
+      it "does not include private topics in @topics" do
+        get :index
+        expect(assigns(:topics)).not_to include(my_private_topic)
       end
     end
 
@@ -88,8 +94,10 @@ RSpec.describe TopicsController, type: :controller do
 
       it "assigs Topic.all to topic" do
         get :index
-        expect(assigns(:topics)).to eq([my_topic])
+        expect(assigns(:topics)).to eq([my_topic, my_private_topic])
       end
+
+
     end
 
     describe "GET #show" do
@@ -161,7 +169,7 @@ RSpec.describe TopicsController, type: :controller do
 
       it "assigns Topic.all to @topics" do
         get :index
-        expect(assigns(:topics)).to eq([my_topic])
+        expect(assigns(:topics)).to eq([my_topic, my_private_topic])
       end
     end
 
