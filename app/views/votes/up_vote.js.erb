@@ -1,0 +1,4 @@
+$('.js-vote').html("<%= escape_javascript(render partial: 'votes/voter', locals: {post: @post})%>");
+$('.js-up-count').html("<%= pluralize(@post.up_votes, 'up vote') %>");
+$('.js-down-count').html("<%= pluralize(@post.down_votes, 'down vote') %>");
+$('.js-points').html("<%= pluralize(@post.points, 'point') %>");
