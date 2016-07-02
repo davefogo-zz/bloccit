@@ -1,8 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::TopicsController, type: :controller do
-  let(:my_user) { create(:user) }
-  let(:my_topic) { create(:topic) }
+RSpec.describe Api::V1::PostsController, type: :controller do
+  let(:my_post) { create(:post) }
 
   context "unauthenticated user" do
     describe "GET index" do
@@ -14,30 +13,25 @@ RSpec.describe Api::V1::TopicsController, type: :controller do
 
     describe "GET show" do
       it "returns http success" do
-        get :show, id: my_topic.id
-        expect(response).to have_http_status(:success)
+        get :show, id: my_post.id
       end
     end
-
   end
 
   context "unauthorized user" do
-    before do
-      controller.request.env['HTTP_AUTHORIZATION'] = ActionController::HttpAuthentication::Token.encode_credentials(my_user.auth_token)
-    end
-
     describe "GET index" do
-      it "GET index returns http success" do
+      it "returns http succes" do
         get :index
         expect(response).to have_http_status(:success)
       end
     end
 
     describe "GET show" do
-      it "GET show returns http success" do
-        get :show, id: my_topic.id
+      it "returns http success" do
+        get :show, id: my_post.id
         expect(response).to have_http_status(:success)
       end
     end
-     
+  end
+
 end
